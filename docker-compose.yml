@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  auth-app:
+    build:
+      context: .
+    ports:
+      - "2238:5000"
+    environment:
+      - FLASK_ENV=production
+      - AUTHENTICATOR_PREFIX=authenticator-gate-keeper
+    volumes:
+      - .:/app
