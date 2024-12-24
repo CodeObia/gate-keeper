@@ -16,7 +16,7 @@ app.logger.info("Flask app is running")
 
 # Secret key for session management
 load_dotenv()
-app.secret_key = os.environ.get('FLASK_SECRET_KEY')
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
 # get the app URL prefix
 authenticator_url_prefix = os.environ.get('AUTHENTICATOR_PREFIX')
@@ -75,13 +75,14 @@ def login():
         message = 'Invalid credentials'
     else:
         redirect_url = request.headers.get('X-Original-URI', '/')
-    return render_template('login.html', redirect_url=redirect_url, message=message, login_url_prefix=authenticator_url_prefix)
+    return render_template('login.html', redirect_url=redirect_url, message=message,
+                           login_url_prefix=authenticator_url_prefix)
 
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect('/' + AUTHENTICATOR_PREFIX + '/login')
+    return redirect('/' + authenticator_url_prefix + '/login')
 
 
 @app.route('/validate', methods=['GET'])
@@ -89,7 +90,7 @@ def validate():
     if current_user.is_authenticated:
         return "OK", 200
     else:
-        return "Unauthorized", 401
+        return "Unauthorized", 403
 
 
 if __name__ == '__main__':
