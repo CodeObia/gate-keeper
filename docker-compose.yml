@@ -4,6 +4,7 @@ services:
   auth-app:
     build:
       context: .
+    restart: unless-stopped
     ports:
       - "2238:5000"
     environment:
