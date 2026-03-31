@@ -76,7 +76,7 @@ def login():
     else:
         redirect_url = request.headers.get('X-Original-URI', '/')
     return render_template('login.html', redirect_url=redirect_url, message=message,
-                           login_url_prefix=authenticator_url_prefix)
+                           login_url_prefix=authenticator_url_prefix), 403
 
 
 @app.route('/logout')

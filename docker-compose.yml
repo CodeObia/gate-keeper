@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   auth-app:
+    container_name: gatekeeper-auth
     build:
       context: .
     restart: unless-stopped
