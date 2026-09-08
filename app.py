@@ -76,7 +76,7 @@ def login():
     else:
         redirect_url = request.headers.get('X-Original-URI', '/')
     return render_template('login.html', redirect_url=redirect_url, message=message,
-                           login_url_prefix=authenticator_url_prefix), 403
+                           login_url_prefix=authenticator_url_prefix), 401
 
 
 @app.route('/logout')
@@ -90,4 +90,4 @@ def validate():
     if current_user.is_authenticated:
         return "OK", 200
     else:
-        return "Unauthorized", 403
+        return "Unauthorized", 401
